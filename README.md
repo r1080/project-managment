@@ -1,2 +1,2 @@
 # project-management
-Java Spring Boot App
+Java Spring Boot App - project-management
