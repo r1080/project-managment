@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: head">
+</head>
+
+<body>
+
+	<nav th:replace="layouts :: navbar"></nav>
+
+	<br>
+
+	<div class="container">
+		<form action="/project/save" th:object="${project}" method="POST">
+
+			<div th:if="${#fields.hasErrors('global')}">
+				<div class="padding-bottom error" th:each="error : ${#fields.errors('global')}" th:text="${error}">error</div>
+			</div>
+
+			<div style="display: none">
+				<input type="text" placeholder="Project Id"
+					th:field="${project.projectId}">
+			</div>
+
+			<div class="form-group row">
+				<input type="text" placeholder="Project Name" th:field="*{name}">
+				&nbsp;
+				<div class="error" th:if="${#fields.hasErrors('name')}"
+					th:errors="*{name}">Name Error</div>
+			</div>
+			<div class="form-group row">
+				<select th:field="${project.stage}">
+					<option th:value="NOTSTARTED">Not Started</option>
+					<option th:value="INPROGRESS">In Progress</option>
+					<option th:value="COMPLETED">Completed</option>
+				</select>
+			</div>
+			<div class="form-group row">
+				<textarea type="text" placeholder="Enter Project Description"
+					th:field="${project.description}"></textarea>
+			</div>
+			<div class="form-group row">
+				<select th:field="*{employeeList}" multiple="multiple">
+					<option th:each="employee: ${allEmployees}"
+						th:value="${employee.employeeId}"
+						th:text="${employee.firstName} + ' ' + ${employee.lastName}">
+				</select>
+			</div>
+
+			<div class="form-group row">
+				<input id="dp3" placeholder="Project Start Date" type="text"
+					class="mb-4 col-2 col-xs-4" value="Start Date"
+					th:field="${project.startDate}">
+					&nbsp;
+				<div class="error" th:if="${#fields.hasErrors('startDate')}"
+					th:errors="*{startDate}">Start Date Error</div>
+			</div>
+
+			<div class="form-group row">
+				<input id="dp4" placeholder="Project End Date" type="text"
+					class="mb-4 col-2 col-xs-4" value="End Date"
+					th:field="${project.endDate}">
+			</div>
+
+			<div class="form-group row">
+				<input id="dp5" placeholder="End Target Date" type="text"
+					class="mb-4 col-2 col-xs-4" value="Target Date"
+					th:field="${project.targetDate}">
+					&nbsp;
+				<div class="error" th:if="${#fields.hasErrors('targetDate')}"
+					th:errors="*{targetDate}">Target Date Error</div>
+			</div>
+
+			<script type="text/javascript">
+				$('#dp3').datepicker();
+				$('#dp4').datepicker();
+				$('#dp5').datepicker();
+			</script>
+
+			<div class="form-group row">
+				<button type="submit" class="btn btn-info">Enter Project</button>
+			</div>
+		</form>
+	</div>
+
+</body>
+
+</html>

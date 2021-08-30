@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+<nav th:replace="layouts :: navbar"></nav>
+
+<head>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="/js/metrics.js"></script>
+</head>
+
+<body>
+
+	<h5 style="padding: 4px;padding-top: 7px;">Project Completion Timelines</h5>
+
+	<div id="timeLineDataModel" style="display:none;">
+		<p th:text="${timelineData}">Test</p>
+	</div>
+	
+	<div id="timeline" style="height: 200px;"></div>
+
+    <h5>Project Completion Status</h5>
+	
+	<hr>
+
+	<div id="table_div"></div>
+
+</body>
+
+
+</html>

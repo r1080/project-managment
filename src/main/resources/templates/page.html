@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+<nav th:replace="layouts :: navbar"></nav>
+
+<body>
+
+
+	<div class="container">
+
+		<h5>
+			Total Number Of Pages: <input th:value="${noOfPages}" type="text" />
+			Total Number Of Elements: <input th:value="${totalItems}" type="text" />
+			Current Page: <input th:value="${currentPage}" type="text" />
+		</h5>
+		
+		<br><hr>
+		<div class="row">
+		<div class="col-md-6">
+				<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>Project Name</th>
+							<th>Project Stage</th>
+							<th>Target Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="aProject : ${projectsList}">
+							<td th:text="${aProject.name}" />
+							<td th:text="${aProject.stage}" />
+							<td th:text="${#dates.format(aProject.targetDate, 'dd-MMM-yyyy')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+</div>
+
+<!-- Pagination Elements -->
+		<div th:if="${noOfPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+				<div class="col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, noOfPages)}"> <a
+						th:if="${currentPage != i}"
+						th:href="@{${i}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+						&nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a th:if="${currentPage < noOfPages}"
+						th:href="@{${currentPage + 1}}">Next</a>
+					<span th:unless="${currentPage < noOfPages}">Next</span>
+				</div>
+
+				<div class="col-sm-1">
+					<a th:if="${currentPage < noOfPages}"
+						th:href="@{${noOfPages}}">Last</a>
+					<span th:unless="${currentPage < noOfPages}">Last</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
