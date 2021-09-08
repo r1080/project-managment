@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.tlabs.pma.dto.ProjectStage;
 import org.tlabs.pma.logging.LogTime;
+import org.tlabs.pma.model.Employee;
 import org.tlabs.pma.model.Project;
+import org.tlabs.pma.model.User;
 import org.tlabs.pma.security.PMASecurityService;
 import org.tlabs.pma.service.EmployeeService;
 import org.tlabs.pma.service.ProjectService;
@@ -115,10 +117,31 @@ public class HomeController {
 	}
 	
 	@GetMapping("/register")
-	public String registerPage(){
+	public String registerPage(Model model){
 		
 		logger.info("Navigate to register");
 		
+		model.addAttribute("user", new User());
+		
 		return "register";
+	}
+	
+	@PostMapping("/register")
+	public String registerUser(User user) {
+		
+		logger.info("Registering User {} " , user);
+		
+		if(pMASecurityService.registerUser(user)) {
+			
+			Employee employee = new Employee();
+			
+			employee.setFirstName(user.getFirstName());
+			employee.setLastName(user.getLastName());
+			employee.setEmail(user.getEmail());
+			
+			employeeService.save(employee);
+		}
+		
+		return "redirect:/home/page/1";
 	}
 }

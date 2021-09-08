@@ -26,7 +26,7 @@ public class PMASecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().mvcMatchers("/css/**", "/js/**", "/images/**").permitAll()
 				.mvcMatchers(HttpMethod.GET, "/", "/home", "/home/register").permitAll()
-				.mvcMatchers(HttpMethod.POST, "/home/login").permitAll()
+				.mvcMatchers(HttpMethod.POST, "/home/login","/home/register").permitAll()
 				.anyRequest().authenticated().and().csrf().disable()
 				.logout().logoutSuccessUrl("/home");
 	}

@@ -1,5 +1,8 @@
 package org.tlabs.pma.security;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.tlabs.pma.model.Role;
+import org.tlabs.pma.model.User;
 
 @Service
 public class PMASecurityService {
@@ -19,7 +24,7 @@ public class PMASecurityService {
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
-
+		
 	public boolean authenticateLogin(String username, String password) {
 		
 		UserDetails user = userDetailsServiceImpl.loadUserByUsername(username);
@@ -37,6 +42,19 @@ public class PMASecurityService {
 			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 		}
 		return result;
+	}
+	
+	
+	public boolean registerUser(User user) {
+		
+		Set<Role> roles = new HashSet<>();
+		Role role = new Role();
+		role.setName("ROLE_USER");
+		roles.add(role);
+		user.setRoles(roles);
+		
+		return userDetailsServiceImpl.registerUser(user);
+		
 	}
 	
 	
