@@ -37,7 +37,7 @@ public class PMASecurityService {
 		authenticationManager.authenticate(authenticationToken);
 		logger.info("After Authenticaton");
 		boolean result = authenticationToken.isAuthenticated();
-				logger.info("Result Of Authenticaton {}", result);
+		logger.info("Result Of Authenticaton {}", result);
 		if(result){
 			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 		}
@@ -49,6 +49,7 @@ public class PMASecurityService {
 		
 		Set<Role> roles = new HashSet<>();
 		Role role = new Role();
+		role.setId(2);
 		role.setName("ROLE_USER");
 		roles.add(role);
 		user.setRoles(roles);

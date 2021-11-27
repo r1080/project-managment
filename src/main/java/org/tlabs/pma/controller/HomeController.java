@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.tlabs.pma.dto.ProjectStage;
 import org.tlabs.pma.logging.LogTime;
 import org.tlabs.pma.model.Employee;
@@ -104,9 +105,10 @@ public class HomeController {
 	}
 	
 	@PostMapping("/login")
-	public String loginHome(String username, String password){
+	public String loginHome(@RequestParam("email") String username, String password){
 		
 		logger.info("UserName, Password {},{} " ,username, password );
+		
 		boolean result = pMASecurityService.authenticateLogin(username,password);
 		
 		if(result){
