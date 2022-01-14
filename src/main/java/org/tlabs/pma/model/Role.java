@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -23,7 +25,10 @@ public class Role implements GrantedAuthority {
 	private Integer id;
 	private String name;
 	
-	@ManyToMany(mappedBy="roles")
+	//@ManyToMany(mappedBy="roles")
+	@ManyToMany(cascade={ CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
 	private Set<User> users;
 	
 	public Integer getId() {
@@ -49,6 +54,19 @@ public class Role implements GrantedAuthority {
 
 	public Role() {
 
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Role(Integer id, String name) {
+		this.id = id;
+		this.name = name;
 	}
 
 }

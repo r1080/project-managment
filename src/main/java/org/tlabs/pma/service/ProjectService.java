@@ -23,15 +23,14 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
-
 	
-	public String getTimelineMetrics() {
-
-		List<Project> projectList = projectRepository.findAll();
+	@Autowired
+	private ObjectMapper mapper;
+		
+	public String getTimelineMetrics(List<Project> projectList) {
 
 		List<List<String>> timeLineData = new ArrayList<>();
 
-		//TODO: Add a check against null empty date and start date
 		int counter = 0;
 		for (Project project : projectList) {
 
@@ -39,7 +38,7 @@ public class ProjectService {
 
 			rowData.add(0, project.getName());
 			rowData.add(1, formatDate(project.getStartDate()));
-			rowData.add(2, formatDate(project.getEndDate()));
+			rowData.add(2, formatDate(project.getTargetDate()));
 
 			timeLineData.add(counter++, rowData);
 		}
@@ -49,6 +48,27 @@ public class ProjectService {
 		return timeLineJsonString;
 	}
 	
+	public String projectCompletionStatus(List<Project> projectList) {
+		
+		List<List<String>> projectStatusData = new ArrayList<>();
+		
+		for (Project project : projectList) {
+
+			List<String> rowData = new ArrayList<>();
+
+			rowData.add(0, project.getName());
+			rowData.add(1, formatDate(project.getTargetDate()));
+			
+			String status = project.getEndDate() == null ? "false" : "true";
+			rowData.add(2, status);
+			
+			projectStatusData.add(rowData);
+		}
+		
+		String statusJSONString = convertToJsonString(projectStatusData);
+		System.out.println("JSON String: =>  " + statusJSONString);	
+		return statusJSONString;
+	}
 	
 	public List<Project> findAllProjects(){
 		return projectRepository.findAll();
@@ -60,17 +80,14 @@ public class ProjectService {
 		return output;
 	}
 	
-	
 	public List<ProjectStage> getProjectStages(){
 		return projectRepository.projectStage();
 	}
 	
-	private String convertToJsonString(List<List<String>> timeLineData) {
-
-		ObjectMapper mapper = new ObjectMapper();
+	public String convertToJsonString(List<?> data) {
 		String jsonString = "";
 		try {
-			jsonString = mapper.writeValueAsString(timeLineData);
+			jsonString = mapper.writeValueAsString(data);
 		} catch (JsonProcessingException e) {
 			
 		}

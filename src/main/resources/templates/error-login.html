@@ -2,24 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 	<head th:replace="layouts :: header"></head>
-	<nav th:replace="layouts :: navbar"></nav>
-
-	<h1>THIS IS ERROR PAGE</h1>
-
+	<!-- <nav th:replace="layouts :: navbar"></nav> -->
 
 	<body>
 
 		<div class="container">
-
-
-			<h2>${error-message}</h2>
-			
-		
+			<h2>Error!</h2>
+			<h3 th:text="${errorMessage}" style="color:red;"></h3>
 
 		</div>
 
 	</body>
-
-
 
 </html>

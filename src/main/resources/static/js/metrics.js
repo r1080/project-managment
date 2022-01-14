@@ -3,6 +3,11 @@ google.charts.load('current', {
 	'packages' : [ 'timeline' ]
 });
 
+var dateFormat = function (dateVal) {
+	var dateSplit = dateVal.split('-');
+	return new Date(dateSplit[0],dateSplit[1]-1,dateSplit[2]);
+}
+
 var getTimeLineData = function(){
 	var dataText = document.getElementById('timeLineDataModel').textContent;
 	return JSON.parse(dataText.trim());
@@ -32,11 +37,6 @@ function drawChart() {
 		rows.push([data[0],dateFormat(data[1]),dateFormat(data[2])]);
 	});
 
-	function dateFormat(dateVal){
-		var dateSplit = dateVal.split('-');
-		return new Date(dateSplit[0],dateSplit[1]-1,dateSplit[2]);
-	}
-	
 	dataTable.addRows(rows);
 
 	chart.draw(dataTable);
@@ -46,18 +46,25 @@ function drawChart() {
 google.charts.load('current', {'packages':['table']});
 google.charts.setOnLoadCallback(drawTable);
 
+var getProjectStatusData = function(){
+	var dataText = document.getElementById('projectCompletionStatusId').textContent;
+	return JSON.parse(dataText.trim());
+}
+
 function drawTable() {
   var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Name');
-  data.addColumn('number', 'Salary');
-  data.addColumn('boolean', 'Full Time Employee');
-  data.addRows([
-	['Mike',  {v: 10000, f: '$10,000'}, true],
-	['Jim',   {v:8000,   f: '$8,000'},  false],
-	['Alice', {v: 12500, f: '$12,500'}, true],
-	['Bob',   {v: 7000,  f: '$7,000'},  true]
-  ]);
-
+  data.addColumn('string', 'Project');
+  data.addColumn('date', 'Target Date');
+  data.addColumn('string', 'Completed');
+  
+  var statusData = getProjectStatusData();
+  let rows = [];
+  statusData.forEach(data => {
+		rows.push([data[0],dateFormat(data[1]),data[2]]);
+  });
+  
+  data.addRows(rows);
+  
   var table = new google.visualization.Table(document.getElementById('table_div'));
 
   table.draw(data, {showRowNumber: true, width: '90%', height: '100%'});

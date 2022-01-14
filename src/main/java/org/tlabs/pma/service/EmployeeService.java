@@ -18,7 +18,6 @@ public class EmployeeService {
 	public List<EmployeeProject> getEmployeeProjectCount() {
 		return employeeRepository.employeeProjects();
 	}
-
 	
 	public void save(Employee employee) {
 		employeeRepository.save(employee);

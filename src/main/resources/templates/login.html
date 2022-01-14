@@ -2,40 +2,56 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layouts :: header">
-</head>
+	<head>
 
-<head>
-<link rel="stylesheet" th:href="@{/css/login.css}">
-</head>
-<nav th:replace="layouts :: navbar"></nav>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous">
+			<link rel="stylesheet" th:href="@{/css/formatting.css}">
+				<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<div class="sidenav login-body">
-	<div class="login-main-text">
-		<h2>
-			PM Application<br> Login Page
-		</h2>
-		<p>Login or register from here to access.</p>
-	</div>
-</div>
-<div class="main login-body">
+				<link rel="stylesheet"
+					href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+					<link rel="stylesheet" href="/resources/demos/style.css">
+						<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+						<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+						<link rel="stylesheet" th:href="@{/css/login.css}">
 
-	<div th:if="${param.error}">Invalid username and password.</div>
-	<div th:if="${param.logout}">You have been logged out.</div>
-	<div class="col-md-4 col-sm-12">
-		<div class="login-form">
-			<form th:action="@{/home/login}" method="post">
-				<div class="form-group">
-					<label>UserName</label> <input type="text" class="form-control"
-						name="email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label>Password</label> <input type="password" class="form-control"
-						name="password" placeholder="Password">
-				</div>
-				<button type="submit" class="btn btn-black">Login</button>
-				<button type="button" th:onclick="|window.location.href='/home/register'|" class="btn btn-secondary">Register</button>
-			</form>
+	</head>
+
+
+	<div class="sidenav login-body">
+		<div class="login-main-text">
+			<h2>
+				PM Application
+				<br> Login Page
+			</h2>
+			<p>Login or register from here to access.</p>
 		</div>
 	</div>
-</div>
+	<div class="main login-body">
+
+		<div th:if="${param.error}">Invalid username and password.</div>
+		<div th:if="${param.logout}">You have been logged out.</div>
+		<div class="col-md-4 col-sm-12">
+			<div class="login-form">
+				<form th:action="@{/home/login}" method="post">
+					<div class="form-group">
+						<label>UserName</label>
+						<input type="text" class="form-control" name="email"
+							placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" class="form-control" name="password"
+							placeholder="Password">
+					</div>
+					<button type="submit" class="btn btn-black">Login</button>
+					<button type="button" th:onclick="|window.location.href='/home/register'|"
+						class="btn btn-secondary">Register</button>
+				</form>
+			</div>
+		</div>
+	</div>

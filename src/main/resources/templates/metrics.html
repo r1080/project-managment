@@ -2,31 +2,34 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layouts :: header"></head>
-<nav th:replace="layouts :: navbar"></nav>
+	<head th:replace="layouts :: header"></head>
+	<nav th:replace="layouts :: navbar"></nav>
 
-<head>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript" src="/js/metrics.js"></script>
-</head>
+	<head>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="/js/metrics.js"></script>
+	</head>
 
-<body>
+	<body>
 
-	<h5 style="padding: 4px;padding-top: 7px;">Project Completion Timelines</h5>
+		<h5 style="padding: 4px;padding-top: 7px;">Project Completion Timelines</h5>
 
-	<div id="timeLineDataModel" style="display:none;">
-		<p th:text="${timelineData}">Test</p>
-	</div>
-	
-	<div id="timeline" style="height: 200px;"></div>
+		<div id="timeLineDataModel" style="display:none;">
+			<p th:text="${timelineData}">Hidden</p>
+		</div>
 
-    <h5>Project Completion Status</h5>
-	
-	<hr>
+		<div id="timeline" style="height: 200px;"></div>
 
-	<div id="table_div"></div>
+		<h5>Project Completion Status</h5>
 
-</body>
+		<div id="projectCompletionStatusId" style="display:none;">
+			<p th:text="${projectCompletionStatus}">Hidden</p>
+		</div>
+
+		<hr>
+			<div id="table_div"></div>
+
+	</body>
 
 
 </html>

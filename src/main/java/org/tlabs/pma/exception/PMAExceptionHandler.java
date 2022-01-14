@@ -18,27 +18,28 @@ public class PMAExceptionHandler {
 	public ModelAndView invalidLoginErrorhandler(HttpServletRequest request, Exception exp) {
 		
 		ModelAndView model = new ModelAndView();
-		
 		model.setViewName("error-login");
-		model.addObject("error-message", "This is Sample Error Message");
+		model.addObject("errorMessage", exp.getMessage());
 		
 		return model;
-		
 	}
 	
 	
 	@ExceptionHandler(value = UsernameNotFoundException.class)
-	public String internalServerErrorhandler(HttpServletRequest req, Exception ex) {
+	public ModelAndView internalServerErrorhandler(HttpServletRequest req, Exception ex) {
 		
 		System.out.println("Controller Advice");
-		
 		System.out.println("Session Creation Time::  " + req.getSession().getCreationTime());
-
 		System.out.println("Request Url: " + req.getRequestURL());
+		
+		ModelAndView model = new ModelAndView();
+		
+		model.setViewName("error-login");
+		model.addObject("errorMessage", ex.getMessage());
 		
 		System.out.println(ex.getMessage());
 		
-		return "error-login";
+		return model;
 	}
 	
 

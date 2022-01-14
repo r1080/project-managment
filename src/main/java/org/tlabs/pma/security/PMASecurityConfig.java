@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class PMASecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	UserDetailsServiceImpl userDetailsServiceImpl;
+	private UserDetailsServiceImpl userDetailsServiceImpl;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -29,7 +29,8 @@ public class PMASecurityConfig extends WebSecurityConfigurerAdapter {
 				.mvcMatchers(HttpMethod.GET, "/", "/home", "/home/register").permitAll()
 				.mvcMatchers(HttpMethod.POST, "/home/login","/home/register").permitAll()
 				.anyRequest().authenticated().and().csrf().disable()
-				.logout().logoutSuccessUrl("/home");
+				.logout().logoutSuccessUrl("/home")
+				.and().sessionManagement().invalidSessionUrl("/home");
 		
 		http.addFilterAfter(new LoginFilter(), UsernamePasswordAuthenticationFilter.class);
 	

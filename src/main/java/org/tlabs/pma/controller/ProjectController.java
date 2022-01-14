@@ -50,7 +50,6 @@ public class ProjectController {
 		if(bindingResult.hasErrors()){
 			return "new-project";
 		}
-
 		projectRepository.save(project);
 
 		return "redirect:/project/view";
@@ -59,9 +58,7 @@ public class ProjectController {
 	@GetMapping("/view")
 	@LogTime
 	public String displayProjects(Model model){
-		
 		model.addAttribute("projects", projectRepository.findAll());
-		
 		return "list-projects";
 	}
 	

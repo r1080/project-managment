@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="layouts :: header"></head>
+	<nav th:replace="layouts :: navbar"></nav>
+
+
+	<body>
+
+		<div class="container">
+
+			<form action="/project/personal" method="GET">
+
+				<input id="dp" placeholder="Last Date" type="text"
+					class="mb-4 col-2 col-xs-4" value="Last Date">
+
+					<script type="text/javascript">
+						$('#dp').datepicker();
+					</script>
+
+					<div class="form-group row">
+						<button type="submit" class="btn btn-info">Enter</button>
+					</div>
+		</div>
+
+
+</html>
